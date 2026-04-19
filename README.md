@@ -15,7 +15,7 @@ No es solo un calendario, es una aventura interactiva que utiliza la tecnología
 ## 🚀 Características Principales
 
 -   **Días y Meses**: Aprende la estructura de la semana y el año con colores y sonidos.
--   **Estaciones del Año**: Descubre por qué cambian las hojas o por qué sale el sol con descripciones mágicas.
+-   **Estaciones del Año**: Descubre por qué cambian las hojas o por qué sale el sol con descripciones.
 -   **Historia Viva**:
     -   **Enero**: ¡Aventuras de vacaciones!
     -   **Mayo**: Los héroes del mar y Arturo Prat.
