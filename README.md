@@ -47,3 +47,7 @@ No es solo un calendario, es una aventura interactiva que utiliza la tecnología
 3.  Sincroniza los archivos de Gradle.
 4.  ¡Ejecuta y comienza a explorar!
 
+<<<<<<< HEAD
+=======
+---
+>>>>>>> 8e22d66694ca6cb7d1f60546b73197334e643a14
