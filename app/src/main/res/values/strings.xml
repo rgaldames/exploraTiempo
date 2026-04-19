@@ -1,0 +1,47 @@
+<resources>
+        <!-- Nombre de la App -->
+        <string name="app_name">Explora Tiempo</string>
+
+        <!-- Títulos de secciones -->
+        <string name="title_days">Días de la Semana</string>
+        <string name="title_months">Meses del Año</string>
+        <string name="title_seasons">Estaciones del Año</string>
+        <string name="title_fun_facts">¿Sabías que...?</string>
+
+        <!-- Días de la semana -->
+        <string name="day_monday">Lunes</string>
+        <string name="day_tuesday">Martes</string>
+        <string name="day_wednesday">Miércoles</string>
+        <string name="day_thursday">Jueves</string>
+        <string name="day_friday">Viernes</string>
+        <string name="day_saturday">Sábado</string>
+        <string name="day_sunday">Domingo</string>
+
+        <!-- Meses del año -->
+        <string name="month_1">Enero</string>
+        <string name="month_2">Febrero</string>
+        <string name="month_3">Marzo</string>
+        <string name="month_4">Abril</string>
+        <string name="month_5">Mayo</string>
+        <string name="month_6">Junio</string>
+        <string name="month_7">Julio</string>
+        <string name="month_8">Agosto</string>
+        <string name="month_9">Septiembre</string>
+        <string name="month_10">Octubre</string>
+        <string name="month_11">Noviembre</string>
+        <string name="month_12">Diciembre</string>
+
+        <!-- Estaciones -->
+        <string name="season_spring">Primavera</string>
+        <string name="season_summer">Verano</string>
+        <string name="season_autumn">Otoño</string>
+        <string name="season_winter">Invierno</string>
+
+        <!-- Información Educativa -->
+        <string name="info_days_in_year">Un año normal tiene 365 días.</string>
+        <string name="info_leap_year">¡El año bisiesto tiene 366 días!</string>
+        <string name="info_months_count">El año se divide en 12 meses.</string>
+        <string name="info_weeks_count">Un año tiene aproximadamente 52 semanas.</string>
+
+
+</resources>
