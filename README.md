@@ -47,5 +47,3 @@ No es solo un calendario, es una aventura interactiva que utiliza la tecnología
 3.  Sincroniza los archivos de Gradle.
 4.  ¡Ejecuta y comienza a explorar!
 
----
-> **Nota pedagógica**: Todos los contenidos históricos han sido curados para transformar fechas complejas en relatos significativos y emocionantes para el público infantil.

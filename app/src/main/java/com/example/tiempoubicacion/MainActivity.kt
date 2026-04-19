@@ -95,25 +95,34 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
 
 @Composable
 fun AdBanner() {
-    AndroidView(
-        modifier = Modifier.fillMaxWidth(),
-        factory = { context ->
-            AdView(context).apply {
-                setAdSize(AdSize.BANNER)
-                adUnitId = "ca-app-pub-3940256099942544/6300978111"
-                loadAd(AdRequest.Builder().build())
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp), // Reservar espacio explícito
+        contentAlignment = Alignment.Center
+    ) {
+        AndroidView(
+            modifier = Modifier.fillMaxWidth(),
+            factory = { context ->
+                AdView(context).apply {
+                    setAdSize(AdSize.BANNER)
+                    // ID de prueba de Google
+                    adUnitId = "ca-app-pub-3940256099942544/6300978111"
+                    loadAd(AdRequest.Builder().build())
+                }
             }
-        }
-    )
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(modifier: Modifier = Modifier, onSpeak: (String) -> Unit) {
     var currentTab by remember { mutableIntStateOf(0) }
-    val tabs = listOf("Días", "Meses", "Estaciones", "El Año")
+    val tabs = listOf("Días", "Meses", "Estaciones", "Año")
 
     Column(modifier = modifier.fillMaxSize().background(LightBackground)) {
+        AdBanner()
         SecondaryTabRow(
             selectedTabIndex = currentTab,
             containerColor = BlueSecondary,
@@ -133,7 +142,15 @@ fun MainScreen(modifier: Modifier = Modifier, onSpeak: (String) -> Unit) {
                         }
                         onSpeak(speechText)
                     },
-                    text = { Text(title, fontWeight = FontWeight.Medium) }
+                    text = { 
+                        Text(
+                            text = title, 
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp,
+                            maxLines = 1,
+                            softWrap = false
+                        ) 
+                    }
                 )
             }
         }
@@ -146,7 +163,6 @@ fun MainScreen(modifier: Modifier = Modifier, onSpeak: (String) -> Unit) {
                 3 -> AnoSeccion(onSpeak)
             }
         }
-        AdBanner()
     }
 }
 
