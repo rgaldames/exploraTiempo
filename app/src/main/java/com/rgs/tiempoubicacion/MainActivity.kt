@@ -1,4 +1,4 @@
-package com.example.tiempoubicacion
+package com.rgs.tiempoubicacion
 
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -21,20 +21,16 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.tiempoubicacion.ui.theme.*
-import com.google.android.gms.ads.AdRequest
+import com.rgs.tiempoubicacion.ui.theme.*
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,7 +40,10 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MobileAds.initialize(this) {}
+        
+        // Inicialización centralizada a través de AdManager
+        AdManager.initialize(this)
+        
         tts = TextToSpeech(this, this)
         enableEdgeToEdge()
         setContent {
@@ -72,7 +71,6 @@ class MainActivity : ComponentActivity(), TextToSpeech.OnInitListener {
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            // Usamos un locale genérico de español para evitar la advertencia de deprecación
             val result = tts?.setLanguage(Locale.forLanguageTag("es"))
             if (result != TextToSpeech.LANG_MISSING_DATA && result != TextToSpeech.LANG_NOT_SUPPORTED) {
                 _isTtsReady.value = true
@@ -98,7 +96,7 @@ fun AdBanner() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp), // Reservar espacio explícito
+            .height(60.dp),
         contentAlignment = Alignment.Center
     ) {
         AndroidView(
@@ -106,9 +104,9 @@ fun AdBanner() {
             factory = { context ->
                 AdView(context).apply {
                     setAdSize(AdSize.BANNER)
-                    // ID de prueba de Google
-                    adUnitId = "ca-app-pub-3940256099942544/6300978111"
-                    loadAd(AdRequest.Builder().build())
+                    // Uso del ID dinámico desde AdManager
+                    adUnitId = AdManager.getBannerAdUnitId()
+                    loadAd(AdManager.createAdRequest())
                 }
             }
         )
@@ -167,64 +165,29 @@ fun MainScreen(modifier: Modifier = Modifier, onSpeak: (String) -> Unit) {
 }
 
 @Composable
-fun BotonEducativo3D(
-    onClick: () -> Unit,
-    baseColor: Color,
-    modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit
-) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-
-    // Animación para el desplazamiento horizontal del color
-    val sweepProgress by animateFloatAsState(
-        targetValue = if (isPressed) 1f else 0f,
-        animationSpec = tween(durationMillis = 250),
-        label = "sweepProgress"
-    )
-
-    // El botón baja cuando se presiona
-    val verticalOffset = (sweepProgress * 4).dp
-    val pressedColor = baseColor.copy(alpha = 0.7f)
-
-    Box(
-        modifier = modifier
+fun StatRow(label: String, value: String) {
+    Row(
+        modifier = Modifier
             .fillMaxWidth()
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClick = onClick
-            )
+            .padding(vertical = 8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        // Sombra inferior (profundidad 3D)
-        Box(
-            modifier = Modifier
-                .matchParentSize()
-                .offset(y = 4.dp)
-                .background(Color.Black.copy(alpha = 0.15f), RoundedCornerShape(12.dp))
-        )
+        Text(label, color = Color.White.copy(alpha = 0.8f), fontSize = 18.sp)
+        Text(value, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+    }
+}
 
-        // Botón frontal
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .offset(y = verticalOffset),
-            shape = RoundedCornerShape(12.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        brush = Brush.horizontalGradient(
-                            0.0f to pressedColor,
-                            sweepProgress to pressedColor,
-                            sweepProgress to baseColor,
-                            1.0f to baseColor
-                        )
-                    ),
-                content = content
-            )
+@Composable
+fun InfoCard(titulo: String, contenido: String) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = BlueSecondary.copy(alpha = 0.1f))
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(titulo, fontWeight = FontWeight.Bold, color = BluePrimary, fontSize = 18.sp)
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(contenido, color = TextMain, fontSize = 14.sp)
         }
     }
 }
@@ -301,7 +264,7 @@ fun MesesSeccion(onSpeak: (String) -> Unit) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(180.dp) // Altura estándar para armonía visual
+                        .height(180.dp)
                         .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -423,88 +386,100 @@ fun AnoSeccion(onSpeak: (String) -> Unit) {
                 StatRow("Días", "365")
             }
         }
-
-        Spacer(modifier = Modifier.height(24.dp))
+        
+        Spacer(modifier = Modifier.height(20.dp))
+        
         Text(
-            "El Mapa de las 52 Semanas",
+            "Mapa de las 52 Semanas",
             style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.fillMaxWidth(),
-            color = TextMain
+            color = TextMain,
+            modifier = Modifier.padding(vertical = 8.dp)
         )
-        Text(
-            "Cada cuadrito es una semana del año.",
-            style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.fillMaxWidth(),
-            color = TextSecondary
-        )
-        Spacer(modifier = Modifier.height(12.dp))
         
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
-            maxItemsInEachRow = 13
+            maxItemsInEachRow = 7
         ) {
-            repeat(52) { index ->
-                val color = when {
-                    index < 13 -> GreenSuccess
-                    index < 26 -> YellowSeason
-                    index < 39 -> OrangeSeason
-                    else -> BluePrimary
-                }
+            repeat(52) { i ->
                 Box(
                     modifier = Modifier
-                        .padding(2.dp)
-                        .size(18.dp)
-                        .clip(RoundedCornerShape(4.dp))
-                        .background(color)
-                        .clickable { onSpeak("Semana número ${index + 1}") }
-                )
+                        .padding(4.dp)
+                        .size(34.dp)
+                        .background(BlueSecondary.copy(alpha = 0.2f), RoundedCornerShape(4.dp)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text((i + 1).toString(), fontSize = 10.sp, color = BluePrimary)
+                }
             }
         }
         
         Spacer(modifier = Modifier.height(24.dp))
+        
         InfoCard(
-            titulo = "Dato Curioso",
-            contenido = "Cada 4 años, el año tiene 366 días y se llama 'Año Bisiesto'."
+            titulo = "¿Año Bisiesto?",
+            contenido = "Cada 4 años, el año tiene 366 días. ¡Febrero gana un día más (el 29)!"
         )
+        
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
 @Composable
-fun StatRow(label: String, value: String) {
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(label, fontSize = 18.sp, color = Color.White)
-        Text(value, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
-    }
-}
+fun BotonEducativo3D(
+    onClick: () -> Unit,
+    baseColor: Color,
+    modifier: Modifier = Modifier,
+    content: @Composable BoxScope.() -> Unit
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
 
-@Composable
-fun InfoCard(titulo: String, contenido: String) {
-    Card(
-        colors = CardDefaults.cardColors(containerColor = BlueSecondary.copy(alpha = 0.4f)),
-        shape = RoundedCornerShape(12.dp)
+    val sweepProgress by animateFloatAsState(
+        targetValue = if (isPressed) 1f else 0f,
+        animationSpec = tween(durationMillis = 250),
+        label = "sweepProgress"
+    )
+
+    val verticalOffset = (sweepProgress * 4).dp
+    val pressedColor = baseColor.copy(alpha = 0.7f)
+
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = onClick
+            )
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("💡", fontSize = 20.sp)
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(titulo, fontWeight = FontWeight.Bold, color = BluePrimary)
-            }
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(contenido, color = TextMain, style = MaterialTheme.typography.bodyMedium)
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .offset(y = 4.dp)
+                .background(Color.Black.copy(alpha = 0.15f), RoundedCornerShape(12.dp))
+        )
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .offset(y = verticalOffset),
+            shape = RoundedCornerShape(12.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        brush = Brush.horizontalGradient(
+                            0.0f to pressedColor,
+                            sweepProgress to pressedColor,
+                            sweepProgress to baseColor,
+                            1.0f to baseColor
+                        )
+                    ),
+                content = content
+            )
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    TiempoUbicacionTheme {
-        MainScreen(onSpeak = {})
-    }
-}
-
-

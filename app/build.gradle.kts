@@ -4,17 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.tiempoubicacion"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    namespace = "com.rgs.tiempoubicacion"
+    compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.tiempoubicacion"
+        applicationId = "com.rgs.tiempoubicacion"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -36,6 +32,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

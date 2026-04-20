@@ -7,7 +7,7 @@
 No es solo un calendario, es una aventura interactiva que utiliza la tecnología para enseñar con cercanía:
 
 -   **Narración Amigable (TTS)**: El sistema de *Text-to-Speech* utiliza una entonación cálida y entusiasta, adaptando los sucesos históricos a un lenguaje comprensible para los más pequeños.
--   **Identidad Nacional**: Integra hitos clave de Chile Continental, Rapa Nui y el Archipiélago Juan Fernández, fomentando el sentido de pertenencia.
+-   **Identidad Nacional**: Integra hitos clave de Chile, fomentando el sentido de pertenencia.
 -   **Diseño Lúdico y Armonioso**: 
     -   Botones con efecto **3D real** y animaciones de color.
     -   Interfaz equilibrada con tamaños estándar para facilitar la lectura y navegación.
@@ -15,39 +15,23 @@ No es solo un calendario, es una aventura interactiva que utiliza la tecnología
 ## 🚀 Características Principales
 
 -   **Días y Meses**: Aprende la estructura de la semana y el año con colores y sonidos.
--   **Estaciones del Año**: Descubre por qué cambian las hojas o por qué sale el sol con descripciones.
--   **Historia Viva**:
-    -   **Enero**: ¡Aventuras de vacaciones!
-    -   **Mayo**: Los héroes del mar y Arturo Prat.
-    -   **Septiembre**: ¡Tiki tiki ti! Fiestas patrias y volantines.
-    -   **Febrero**: La fiesta Tapati en Rapa Nui.
--   **Interfaz Moderna**: Construida totalmente con **Jetpack Compose** para una experiencia fluida y visualmente atractiva.
+-   **Estaciones del Año**: Descubre por qué cambian las hojas o por qué sale el sol con descripciones pedagógicas.
+-   **Historia Viva**: Contenido adaptado sobre hitos importantes como el combate de Iquique, Fiestas Patrias y Año Nuevo.
+-   **Interfaz Moderna**: Construida totalmente con **Jetpack Compose** para una experiencia fluida.
 
 ## 🛠️ Tecnologías Utilizadas
 
--   **Kotlin**: El corazón de la lógica de la app.
--   **Jetpack Compose**: Para una interfaz moderna, declarativa y pixel-perfect.
--   **Android TextToSpeech**: Integración de voz para facilitar el aprendizaje auditivo.
--   **Material Design 3**: El estándar más actual de Google para diseño de interfaces.
--   **AdMob**: Integración de anuncios para mantener el proyecto gratuito.
+-   **Kotlin**: Lenguaje principal.
+-   **Jetpack Compose**: UI moderna y declarativa.
+-   **Android TextToSpeech**: Voz para aprendizaje auditivo.
+-   **AdMob con AdManager**: Gestión inteligente de anuncios (Modo Test automático en desarrollo y Producción en Release).
+-   **Políticas de Privacidad**: Cumplimiento estricto con COPPA y Políticas de Familias de Google Play.
 
-## 📱 Requisitos
+## 📱 Requisitos e Instalación
 
--   Android 8.0 (API 26) o superior.
--   Conexión a internet (para anuncios).
--   Motor de voz instalado en el dispositivo para una mejor experiencia TTS.
+1.  Android 7.0 (API 24) o superior.
+2.  Clona el repositorio: `git clone https://github.com/rgaldames/exploraTiempo.git`
+3.  Abre en Android Studio y sincroniza Gradle.
 
-## 📥 Instalación
-
-1.  Clona este repositorio:
-    ```bash
-    git clone https://github.com/rgaldames/exploraTiempo.git
-    ```
-2.  Abre el proyecto en **Android Studio**.
-3.  Sincroniza los archivos de Gradle.
-4.  ¡Ejecuta y comienza a explorar!
-
-<<<<<<< HEAD
-=======
 ---
->>>>>>> 8e22d66694ca6cb7d1f60546b73197334e643a14
+**Desarrollado con ❤️ para el aprendizaje infantil.**
