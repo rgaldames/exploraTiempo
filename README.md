@@ -1,4 +1,4 @@
-# Explora Tiempo 🌎🕰️
+# Explora Tiempo
 
 **Explora Tiempo** es una aplicación educativa para Android diseñada para que niños y niñas de **6 a 12 años** descubran de forma divertida los conceptos del tiempo, las estaciones y la historia de Chile.
 
@@ -34,4 +34,3 @@ No es solo un calendario, es una aventura interactiva que utiliza la tecnología
 3.  Abre en Android Studio y sincroniza Gradle.
 
 ---
-**Desarrollado con ❤️ para el aprendizaje infantil.**
