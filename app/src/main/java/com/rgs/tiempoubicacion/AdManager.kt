@@ -8,8 +8,8 @@ object AdManager {
     // IDs de Prueba oficiales de Google
     private const val BANNER_TEST_ID = "ca-app-pub-3940256099942544/6300978111"
     
-    // Reemplaza con tu ID de producción real cuando lo tengas
-    private const val BANNER_PROD_ID = "ca-app-pub-3940256099942544/6300978111" 
+    // El ID de producción se lee desde BuildConfig para no exponerlo en GitHub
+    private val BANNER_PROD_ID = BuildConfig.BANNER_PROD_ID
 
     /**
      * Retorna el ID del banner dependiendo de si la app está en modo Debug o Release.

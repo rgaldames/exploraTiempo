@@ -7,6 +7,13 @@ android {
     namespace = "com.rgs.tiempoubicacion"
     compileSdk = 35
 
+    val localProperties = java.util.Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localProperties.load(localPropertiesFile.inputStream())
+    }
+    val adId = localProperties.getProperty("BANNER_AD_UNIT_ID_PROD") ?: "\"ca-app-pub-3940256099942544/6300978111\""
+
     defaultConfig {
         applicationId = "com.rgs.tiempoubicacion"
         minSdk = 24
@@ -14,6 +21,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildConfigField("String", "BANNER_PROD_ID", adId)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

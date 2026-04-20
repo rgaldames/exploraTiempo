@@ -26,12 +26,12 @@ enum class Estacion(
     val mesesCompletos: String
 ) {
     VERANO(
-        "Verano", "☀️", Color(0xFFFFD54F),
+        "Verano", "☀️", Color(0xFFECC433),
         "¡Es tiempo de calor y vacaciones! El sol brilla fuerte y los días son muy largos.",
         "Enero y Febrero"
     ),
     OTONO(
-        "Otoño", "🍂", Color(0xFFFF8A65),
+        "Otoño", "🍂", Color(0xFFE39C65),
         "Las hojas de los árboles cambian a colores café y amarillo y comienzan a caer.",
         "Abril y Mayo"
     ),
