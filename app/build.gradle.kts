@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -7,7 +9,7 @@ android {
     namespace = "com.rgs.tiempoubicacion"
     compileSdk = 35
 
-    val localProperties = java.util.Properties()
+    val localProperties = Properties()
     val localPropertiesFile = rootProject.file("local.properties")
     if (localPropertiesFile.exists()) {
         localProperties.load(localPropertiesFile.inputStream())
@@ -18,8 +20,8 @@ android {
         applicationId = "com.rgs.tiempoubicacion"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.2"
 
         buildConfigField("String", "BANNER_PROD_ID", adId)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
